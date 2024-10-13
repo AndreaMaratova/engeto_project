@@ -1,6 +1,6 @@
 -- 2. Kolik je možné si koupit litrů mléka a kilogramů chleba za první a poslední srovnatelné období v dostupných datech cen a mezd?
 
--- mléko, sežazené podle změny v letech 2006 a 2018
+-- mléko, seřazené podle změny v letech 2006 a 2018
 SELECT
 	a.industry_name,
 	a.prumerna_mzda AS prumerna_mzda_2006,
@@ -85,7 +85,7 @@ ORDER BY ks_za_mzdu_2018 desc;
 -- Z dat lze vypozorovat, že cena mléka je z dlouhodobého hlediska procentuálně srovnatelná s růstem mezd v oboru Peněžnictví a pojišťovnictví.
 
 
--- chléb, sežazené podle změny v letech 2006 a 2018
+-- chléb, seřazené podle změny v letech 2006 a 2018
 
 SELECT
 	a.industry_name,
