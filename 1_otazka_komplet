@@ -1,0 +1,77 @@
+-- 1. Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?
+
+-- pouze roky 2006 a 2018, seřazení dle nejvyšší procentuální změny
+SELECT 
+	a.industry_name, 
+	a.prumerna_mzda AS prumerna_mzda_2006,
+	b.prumerna_mzda AS prumerna_mzda_2018, 
+	round(((b.prumerna_mzda - a.prumerna_mzda)/a.prumerna_mzda)*100,2) AS procentualni_zmena,
+	b.prumerna_mzda-a.prumerna_mzda AS realny_rust,
+	CASE 
+		WHEN lag(a.prumerna_mzda) OVER (PARTITION BY a.industry_name ORDER BY a.YEAR) > a.prumerna_mzda THEN 'NE' ELSE 'ANO'
+	END AS vyssi_mzda
+FROM t_andrea_maratova_project_sql_primary_final a
+JOIN t_andrea_maratova_project_sql_primary_final b
+ON a.industry_branch_code = b.industry_branch_code 
+	AND a.YEAR = 2006
+	AND b.`YEAR` = 2018
+GROUP BY a.industry_name 
+ORDER BY procentualni_zmena desc;
+
+-- pouze roky 2006 a 2018, seřazení dle nejvyššího reálné změny
+SELECT 
+	a.industry_name, 
+	a.prumerna_mzda AS prumerna_mzda_2006,
+	b.prumerna_mzda AS prumerna_mzda_2018, 
+	round(((b.prumerna_mzda - a.prumerna_mzda)/a.prumerna_mzda)*100,2) AS procentualni_zmena,
+	b.prumerna_mzda-a.prumerna_mzda AS realna_zmena,
+	CASE 
+		WHEN lag(a.prumerna_mzda) OVER (PARTITION BY a.industry_name ORDER BY a.YEAR) > a.prumerna_mzda THEN 'NE' ELSE 'ANO'
+	END AS vyssi_mzda
+FROM t_andrea_maratova_project_sql_primary_final a
+JOIN t_andrea_maratova_project_sql_primary_final b
+ON a.industry_branch_code = b.industry_branch_code 
+	AND a.YEAR = 2006
+	AND b.`YEAR` = 2018
+GROUP BY a.industry_name 
+ORDER BY realna_zmena desc;
+
+-- jednotlivé odvětví v průběhu let
+SELECT 
+	YEAR, 
+	industry_name, 
+	prumerna_mzda, 
+	CASE 
+		WHEN lag(prumerna_mzda) OVER (PARTITION BY industry_name ORDER BY YEAR) > prumerna_mzda THEN 'NE' ELSE 'ANO'
+	END AS vyssi_mzda
+FROM t_andrea_maratova_project_sql_primary_final tampspf
+GROUP BY YEAR, industry_name 
+ORDER BY YEAR, industry_branch_code; 
+
+
+-- Průměr růstu mezd celé republiky v letech 
+SELECT 
+    a.year,
+    a.prumerna_mzda_vsechny_obory,
+    ROUND(((a.prumerna_mzda_vsechny_obory - b.prumerna_mzda_vsechny_obory_1) / b.prumerna_mzda_vsechny_obory_1) * 100, 2) AS pct_zmena
+FROM 
+    (SELECT 
+         year, 
+         AVG(prumerna_mzda) AS prumerna_mzda_vsechny_obory
+     FROM t_andrea_maratova_project_sql_primary_final 
+     GROUP BY year) a
+LEFT JOIN 
+    (SELECT 
+         year, 
+         AVG(prumerna_mzda) AS prumerna_mzda_vsechny_obory_1
+     FROM t_andrea_maratova_project_sql_primary_final
+     GROUP BY year) b 
+ON a.year = b.year+ 1
+ORDER BY YEAR asc;
+
+-- Shrnutí:
+-- Z dlouhodobého hlediska v pozorovaném období 2006 - 2018 platy ve všech odvětvích rostly. Největší procentuální růst, 76,94 %, zaznamenalo odvětví Zdravotní a sociální péče. 
+-- Naopak nejnižší procentuální růst, 36,33 % zaznamenalo odvětví Peněžnictví a pojišťovnictví. Reálně si ale nejvíce polepšilo odvětví Informační a komunikační činnosti a to o 20.733,75 Kč. 
+-- Nejméně si reálně polepšilo odvětví Administrativní a podpůrné činnosti s 6.630,50 Kč.
+-- Při porovnání jednotlivých let mzdy ne vždy rostly. Např. při pohledu na jednotlivá odvětví v roce 2013, kdy Česká republika zažívala recesi, je vidět pokles mezd ve více než polovině odvětví.
+-- Při porovnání celorepublikových mezd napříč odvětvími se České republice nejvíce dařilo v roce 2008 s procentuálním růstem 7,87 % Naopak v roce 2013 došlo k průměrnému poklesu mezd o 1,56 %.
