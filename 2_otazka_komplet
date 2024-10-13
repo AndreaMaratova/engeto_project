@@ -1,6 +1,6 @@
 -- 2. Kolik je možné si koupit litrů mléka a kilogramů chleba za první a poslední srovnatelné období v dostupných datech cen a mezd?
 
--- mléko, sežazené podle změny
+-- mléko, sežazené podle změny v letech 2006 a 2018
 SELECT
 	a.industry_name,
 	a.prumerna_mzda AS prumerna_mzda_2006,
@@ -83,3 +83,89 @@ ORDER BY ks_za_mzdu_2018 desc;
 -- V roce 2018 si reálně mohli nejvíce litrů mléka koupit lidé z odvětví Informační a komunikační činnosti, a to 2.830,54 l, nejméně opět lidé pracující v Ubytování, stravování
 -- a pohostinství. Ti si mohli koupit pouze 947,02 l. (2_otazka_c)
 -- Z dat lze vypozorovat, že cena mléka je z dlouhodobého hlediska procentuálně srovnatelná s růstem mezd v oboru Peněžnictví a pojišťovnictví.
+
+
+-- chléb, sežazené podle změny v letech 2006 a 2018
+
+SELECT
+	a.industry_name,
+	a.prumerna_mzda AS prumerna_mzda_2006,
+	b.prumerna_mzda AS prumerna_mzda_2018,
+	a.category_name,
+	a.price_value,
+	a.price_unit,
+	a.prumerna_cena AS prumerna_cena_2006,
+	b.prumerna_cena AS prumerna_cena_2018,
+	round(((b.prumerna_cena - a.prumerna_cena)/a.prumerna_cena)*100,2) AS procentualni_zmena,
+	round(a.prumerna_mzda/a.prumerna_cena,2) AS ks_za_mzdu_2006,
+	round(b.prumerna_mzda/b.prumerna_cena,2) AS ks_za_mzdu_2018,
+	round(b.prumerna_mzda/b.prumerna_cena,2)-round(a.prumerna_mzda/a.prumerna_cena,2) AS zmena_2018_2006
+FROM t_andrea_maratova_project_sql_primary_final a
+JOIN t_andrea_maratova_project_sql_primary_final b
+ON a.industry_branch_code = b.industry_branch_code 
+	AND a.year = 2006
+	AND b.`YEAR` = 2018
+	AND a.category_name = b.category_name
+WHERE a.category_name like '%Chléb%'
+ORDER BY zmena_2018_2006 desc; 
+
+-- chléb, seřazené podle roku 2006
+SELECT
+	a.industry_name,
+	a.prumerna_mzda AS prumerna_mzda_2006,
+	b.prumerna_mzda AS prumerna_mzda_2018,
+	a.category_name,
+	a.price_value,
+	a.price_unit,
+	a.prumerna_cena AS prumerna_cena_2006,
+	b.prumerna_cena AS prumerna_cena_2018,
+	round(((b.prumerna_cena - a.prumerna_cena)/a.prumerna_cena)*100,2) AS procentualni_zmena,
+	round(a.prumerna_mzda/a.prumerna_cena,2) AS ks_za_mzdu_2006,
+	round(b.prumerna_mzda/b.prumerna_cena,2) AS ks_za_mzdu_2018,
+	round(b.prumerna_mzda/b.prumerna_cena,2)-round(a.prumerna_mzda/a.prumerna_cena,2) AS zmena_2018_2006
+FROM t_andrea_maratova_project_sql_primary_final a
+JOIN t_andrea_maratova_project_sql_primary_final b
+ON a.industry_branch_code = b.industry_branch_code 
+	AND a.year = 2006
+	AND b.`YEAR` = 2018
+	AND a.category_name = b.category_name
+WHERE a.category_name like '%Chléb%'
+ORDER BY ks_za_mzdu_2006 desc; 
+
+
+-- chléb, seřazené podle roku 2018
+SELECT
+	a.industry_name,
+	a.prumerna_mzda AS prumerna_mzda_2006,
+	b.prumerna_mzda AS prumerna_mzda_2018,
+	a.category_name,
+	a.price_value,
+	a.price_unit,
+	a.prumerna_cena AS prumerna_cena_2006,
+	b.prumerna_cena AS prumerna_cena_2018,
+	round(((b.prumerna_cena - a.prumerna_cena)/a.prumerna_cena)*100,2) AS procentualni_zmena,
+	round(a.prumerna_mzda/a.prumerna_cena,2) AS ks_za_mzdu_2006,
+	round(b.prumerna_mzda/b.prumerna_cena,2) AS ks_za_mzdu_2018,
+	round(b.prumerna_mzda/b.prumerna_cena,2)-round(a.prumerna_mzda/a.prumerna_cena,2) AS zmena_2018_2006
+FROM t_andrea_maratova_project_sql_primary_final a
+JOIN t_andrea_maratova_project_sql_primary_final b
+ON a.industry_branch_code = b.industry_branch_code 
+	AND a.year = 2006
+	AND b.`YEAR` = 2018
+	AND a.category_name = b.category_name
+WHERE a.category_name like '%Chléb%'
+ORDER BY ks_za_mzdu_2018 desc; 
+
+
+-- Shrnutí (chléb):
+-- Chléb konzumní kmínový za pozorované období mezi lety 2006 a 2018 zdražil svou průměrnou cenu z 16,12 Kč/kg na 24,24 Kč/kg, což je 50,37% nárůst ceny (2_otazka_d).
+-- Poměrově nejvíce si při koupi chleba přilepšili lidé pracující ve zdravotnictví, kteří si mohli v roce 2018 koupit o 202,81 kg chleba více, než v roce 2006. 
+-- Tedy z roku 2006 s 1.148,11 kg si polepšili na 1.350,92 kg v roce 2018. Naopak poměrově nejméně chleba si mohli koupit lidé pracující v peněžnictví a pojišťovnictví. 
+-- Ti si mohli v roce 2018 koupit dokonce o 229,85 kg méně než v roce 2006. Tedy z roku 2006 s 2.462,17 kg si pohoršili na 2.232,32 kg v roce 2018 (2_otazka_d).
+-- Reálně si v roce 2006 mohli nejvíce kilogramů chleba koupit lidé pracující v Peněžnictví a pojišťovnictví, a to 2.462,17kg, nejméně pak lidé pracující v Ubytování, stravování 
+-- a pohostinství. Ti si mohli koupit pouze 706,58 kg (2_otazka_e).
+-- V roce 2018 si reálně mohli nejvíce kilogramů chleba koupit lidé z odvětví Informační a komunikační činnosti, a to 2.314,41 kg, nejméně opět lidé pracující v Ubytování, stravování
+-- a pohostinství. Ti si mohli koupit pouze 774,33 kg.
+-- Z dat lze vypozorovat, že cena chleba je z dlouhodobého hlediska procentuálně srovnatelná s růstem mezd v oboru Činnosti v oblasti nemovitostí, kteří si mohli v roce 2018 koupit pouze 
+-- o 3,25 kg chleba méně než v roce 2006.
+
