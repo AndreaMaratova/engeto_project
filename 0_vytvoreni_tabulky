@@ -1,0 +1,98 @@
+-- 1. Vytvoření pohledu vypočtené průměrné mzdy za rok dle odvětví
+CREATE OR REPLACE VIEW v_andrea_maratova_czechia_payroll_prumerna_mzda_dle_odvetvi as
+SELECT 
+	cp.payroll_year AS year, 
+	cp.industry_branch_code, 
+	cpib.name AS industry_name, 
+	round(avg(cp.value),2) AS prumerna_mzda 
+FROM czechia_payroll cp 
+JOIN czechia_payroll_industry_branch cpib 
+	ON cp.industry_branch_code = cpib.code
+WHERE cp.industry_branch_code IS NOT NULL
+	AND cp.value IS NOT null
+	AND cp.value_type_code = 5958 -- průměrná hrubá mzda na zaměstnance
+	AND cp.unit_code = 200 -- Kč
+GROUP BY cp.industry_branch_code , cp.payroll_year ;
+
+
+-- 2. Vypočtení průměrné ceny jídla v daném roce 
+-- Kontrola, jestli není nějaká cena uvedena na přelomu roku -> mohu ponechat v datech pouze jeden sloupec o roku
+SELECT * 
+FROM czechia_price cp 
+WHERE year(cp.date_from) != year(cp.date_to);
+
+-- Vytvoření pohledu
+CREATE OR REPLACE VIEW v_andrea_maratova_czechia_price_prumerna_cena_jidla AS
+SELECT 
+  ROUND(AVG(cp.value), 2) AS prumerna_cena, 
+  cp.category_code, 
+  cpc.name AS category_name, 
+  cpc.price_value, 
+  cpc.price_unit, 
+  YEAR(cp.date_from) AS year
+FROM czechia_price cp
+JOIN czechia_price_category cpc 
+	ON cp.category_code = cpc.code
+GROUP BY 
+	YEAR, 
+	cp.category_code;
+
+
+-- 3. Spojení pohledů v_czechia_payroll_prumerna_mzda_dle_odvetvi a v_czechia_price_prumerna_cena_jidla
+CREATE OR REPLACE VIEW v_andrea_maratova_tabulka as
+SELECT 
+	a.`year` ,
+	a.industry_branch_code,
+	a.industry_name,
+	a.prumerna_mzda,
+	b.prumerna_cena,
+	b.category_code, 
+	b.category_name,
+	b.price_value,
+	b.price_unit,
+	round(a.prumerna_mzda / b.prumerna_cena,2) AS ks_za_mzdu
+FROM v_andrea_maratova_czechia_payroll_prumerna_mzda_dle_odvetvi a
+JOIN v_andrea_maratova_czechia_price_prumerna_cena_jidla b
+	ON a.year = b.YEAR;
+
+
+-- 4. Vytvoření tabulky t_andrea_maratova_project_sql_primary_final
+-- ověření hodnot pro nastavení správného datového typu tabulky
+SELECT DISTINCT(price_value) 
+FROM czechia_price_category cpc
+LIMIT 10;
+
+-- ověření jednotek pro nastavení správného datového typu tabulky
+SELECT DISTINCT(price_unit) FROM czechia_price_category cpc 
+LIMIT 10;
+
+-- vytvoření t_andrea_maratova_project_sql_primary_final
+CREATE OR REPLACE TABLE t_andrea_maratova_project_SQL_primary_final (
+	id int UNIQUE AUTO_INCREMENT PRIMARY KEY NOT NULL, 	
+	YEAR int NOT NULL, 
+	industry_branch_code varchar(2) NOT NULL,
+	industry_name varchar (255) NOT NULL,
+	prumerna_mzda decimal(8,2) NOT NULL,
+	prumerna_cena decimal(6,2) NOT NULL,
+	category_code int NOT NULL,
+	category_name varchar(255),
+	price_value decimal(5,2) NOT NULL,
+	price_unit varchar(2),
+	ks_za_mzdu decimal(6,2)
+);
+
+-- vložení dat do tabulky z pohledu v_tabulka_1 a posunutí dat o 1 sloupec (vytvoření id)
+INSERT INTO t_andrea_maratova_project_sql_primary_final 
+	(YEAR, industry_branch_code, industry_name, prumerna_mzda, prumerna_cena, category_code, category_name, price_value, price_unit, ks_za_mzdu) 
+SELECT 
+	YEAR, 
+	industry_branch_code, 
+	industry_name, 
+	prumerna_mzda, 
+	prumerna_cena, 
+	category_code, 
+	category_name, 
+	price_value, 
+	price_unit, 
+	ks_za_mzdu 
+FROM v_andrea_maratova_tabulka;
