@@ -1,0 +1,11 @@
+-- jednotlivá odvětví v průběhu let
+SELECT 
+	YEAR, 
+	industry_name, 
+	prumerna_mzda, 
+	CASE 
+		WHEN lag(prumerna_mzda) OVER (PARTITION BY industry_name ORDER BY YEAR) > prumerna_mzda THEN 'NE' ELSE 'ANO'
+	END AS vyssi_mzda
+FROM t_andrea_maratova_project_sql_primary_final tampspf
+GROUP BY YEAR, industry_name 
+ORDER BY YEAR, industry_branch_code; 
