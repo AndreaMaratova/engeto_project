@@ -1,4 +1,4 @@
--- pouze roky 2006 a 2018, seřazení dle nejvyššího reálné změny
+-- pouze roky 2006 a 2018, seřazení dle nejvyšší reálné změny mzdy
 SELECT 
 	a.industry_name, 
 	a.prumerna_mzda AS prumerna_mzda_2006,
