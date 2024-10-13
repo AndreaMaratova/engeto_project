@@ -1,0 +1,22 @@
+-- chléb, seřazené podle roku 2006
+SELECT
+	a.industry_name,
+	a.prumerna_mzda AS prumerna_mzda_2006,
+	b.prumerna_mzda AS prumerna_mzda_2018,
+	a.category_name,
+	a.price_value,
+	a.price_unit,
+	a.prumerna_cena AS prumerna_cena_2006,
+	b.prumerna_cena AS prumerna_cena_2018,
+	round(((b.prumerna_cena - a.prumerna_cena)/a.prumerna_cena)*100,2) AS procentualni_zmena,
+	round(a.prumerna_mzda/a.prumerna_cena,2) AS ks_za_mzdu_2006,
+	round(b.prumerna_mzda/b.prumerna_cena,2) AS ks_za_mzdu_2018,
+	round(b.prumerna_mzda/b.prumerna_cena,2)-round(a.prumerna_mzda/a.prumerna_cena,2) AS zmena_2018_2006
+FROM t_andrea_maratova_project_sql_primary_final a
+JOIN t_andrea_maratova_project_sql_primary_final b
+ON a.industry_branch_code = b.industry_branch_code 
+	AND a.year = 2006
+	AND b.`YEAR` = 2018
+	AND a.category_name = b.category_name
+WHERE a.category_name like '%Chléb%'
+ORDER BY ks_za_mzdu_2006 desc; 
