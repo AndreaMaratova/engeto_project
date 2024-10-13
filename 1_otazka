@@ -1,0 +1,42 @@
+-- 1. Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?
+
+-- pouze roky 2006 a 2018
+SELECT 
+	year, 
+	industry_name, 
+	prumerna_mzda,
+	CASE 
+		WHEN lag(prumerna_mzda) OVER (PARTITION BY industry_name ORDER BY YEAR) > prumerna_mzda THEN 'NE' ELSE 'ANO'
+	END AS vyssi_mzda
+FROM t_andrea_maratova_project_sql_primary_final tampspf
+WHERE 
+  YEAR = 2006 
+  OR YEAR = 2018
+GROUP BY 
+  YEAR, 
+  industry_name 
+ORDER BY 
+  industry_branch_code, 
+  YEAR;
+
+-- jednotlivé odvětví v průběhu let
+SELECT 
+	YEAR, 
+	industry_name, 
+	prumerna_mzda, 
+	CASE 
+		WHEN lag(prumerna_mzda) OVER (PARTITION BY industry_name ORDER BY YEAR) > prumerna_mzda THEN 'NE' ELSE 'ANO'
+	END AS vyssi_mzda
+FROM t_andrea_maratova_project_sql_primary_final tampspf
+GROUP BY 
+  YEAR, 
+  industry_name 
+ORDER BY 
+  YEAR, 
+  industry_branch_code; 
+
+
+-- Shrnutí:
+-- Z dlouhodobého hlediska v pozorovaném období 2006 - 2018 platy ve všech odvětvích rostly. 
+-- Při porovnání jednotlivých let tomu tak ale vždy nebylo. Např. velký pokles mezd zaznamenala více než polovina odvětví v roce 2013, kdy Česká republika zařívala recesi.
+
