@@ -11,6 +11,7 @@ Při porovnání celorepublikových mezd napříč odvětvími se České republ
 **2. Kolik je možné si koupit litrů mléka a kilogramů chleba za první a poslední srovnatelné období v dostupných datech cen a mezd?**
 
 Shrnutí (mléko):
+
 Mléko za pozorované období mezi lety 2006 a 2018 zdražilo svou průměrnou cenu z 14,44 Kč/l na 19,82 Kč/l, což je 37,26% nárůst ceny (2_otazka_a).
 Poměrově nejvíce si při koupi mléka přilepšili lidé pracující v odvětví Informační a komunikační technologie, kteří si mohli v roce 2018 koupit o 381,27 l mléka více, než v roce 2006 (2_otazka_a).
 Tedy z roku 2006 s 2.449,27 l si polepšili na 2.830,54 l v roce 2018. Naopak nejméně mléka si mohli koupit lidé pracující v peněžnictví a pojišťovnictví. Ti si mohli v roce 2018 koupit dokonce o 18,48 l méně 
@@ -20,6 +21,7 @@ V roce 2018 si reálně mohli nejvíce litrů mléka koupit lidé z odvětví In
 Z dat lze vypozorovat, že cena mléka je z dlouhodobého hlediska procentuálně srovnatelná s růstem mezd v oboru Peněžnictví a pojišťovnictví.
 
 Shrnutí (chléb):
+
 Chléb konzumní kmínový za pozorované období mezi lety 2006 a 2018 zdražil svou průměrnou cenu z 16,12 Kč/kg na 24,24 Kč/kg, což je 50,37% nárůst ceny (2_otazka_d).
 Poměrově nejvíce si při koupi chleba přilepšili lidé pracující ve zdravotnictví, kteří si mohli v roce 2018 koupit o 202,81 kg chleba více, než v roce 2006 (2_otazka_d). 
 Tedy z roku 2006 s 1.148,11 kg si polepšili na 1.350,92 kg v roce 2018. Naopak poměrově nejméně chleba si mohli koupit lidé pracující v peněžnictví a pojišťovnictví. Ti si mohli v roce 2018 koupit dokonce o 229,85 kg méně než v roce 2006. Tedy z roku 2006 s 2.462,17 kg si pohoršili na 2.232,32 kg v roce 2018 (2_otazka_d).
