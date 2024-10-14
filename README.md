@@ -29,3 +29,8 @@ Reálně si v roce 2006 mohli nejvíce kilogramů chleba koupit lidé pracujíc�
 706,58 kg (2_otazka_e).
 V roce 2018 si reálně mohli nejvíce kilogramů chleba koupit lidé z odvětví Informační a komunikační činnosti, a to 2.314,41 kg, nejméně opět lidé pracující v Ubytování, stravovánía pohostinství. Ti si mohli koupit pouze 774,33 kg (2_otazka_f). 
 Z dat lze vypozorovat, že cena chléb je z dlouhodobého hlediska procentuálně srovnatelná s růstem mezd v oboru Činnosti v oblasti nemovitostí, kteří si mohli v roce 2018 koupit pouze o 3,25 kg chleba méně než v roce 2006.
+
+
+**3. Která kategorie potravin zdražuje nejpomaleji (je u ní nejnižší percentuální meziroční nárůst)?**
+
+Nejpomaleji zdražují Rajská jablka červená kulatá, ta dokonce meziročně průměrně zlevňují o 3,81 %.
