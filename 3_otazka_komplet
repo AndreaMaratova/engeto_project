@@ -1,0 +1,27 @@
+-- 3. Která kategorie potravin zdražuje nejpomaleji (je u ní nejnižší percentuální meziroční nárůst)?
+
+CREATE OR REPLACE VIEW v_andrea_maratova_3_otazka as
+SELECT
+	a.YEAR,
+	a.category_name,
+	a.price_value,
+	a.price_unit,
+	a.prumerna_cena AS prumerna_cena_v_danem_roce,
+	lag(prumerna_cena) OVER (PARTITION BY category_name ORDER BY year) AS prumerna_cena_v_predchozim_roce,
+	prumerna_cena - lag(prumerna_cena) OVER (PARTITION BY category_name ORDER BY year),
+	round(((prumerna_cena - lag(prumerna_cena) OVER (PARTITION BY category_name ORDER BY year))/prumerna_cena)*100,2) AS procentualni_zmena
+FROM t_andrea_maratova_project_sql_primary_final a
+-- WHERE category_name LIKE "%Cukr%"
+GROUP BY  YEAR, category_name 
+ORDER BY  YEAR, category_name desc; 
+
+
+SELECT 
+	category_name,
+	round(avg(procentualni_zmena),2) AS prumerna_mezirocni_procentualni_zmena
+FROM v_andrea_maratova_3_otazka vamo
+GROUP BY category_name
+ORDER BY prumerna_mezirocni_procentualni_zmena; 
+
+-- Shrnutí:
+-- Nejpomaleji zdražují Rajská jablka červená kulatá, ta dokonce meziročně průměrně zlevňují o 3,81 %.
