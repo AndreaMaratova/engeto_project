@@ -11,7 +11,6 @@ SELECT
 	prumerna_cena - lag(prumerna_cena) OVER (PARTITION BY category_name ORDER BY year) AS zmena_v_kc,
 	round(((prumerna_cena - lag(prumerna_cena) OVER (PARTITION BY category_name ORDER BY year))/prumerna_cena)*100,2) AS procentualni_zmena
 FROM t_andrea_maratova_project_sql_primary_final a
--- WHERE category_name LIKE "%Cukr%"
 GROUP BY  YEAR, category_name 
 ORDER BY  YEAR, category_name desc; 
 
