@@ -1,6 +1,0 @@
-SELECT 
-	category_name,
-	round(avg(procentualni_zmena),2) AS prumerna_mezirocni_procentualni_zmena
-FROM v_andrea_maratova_3_otazka vamo
-GROUP BY category_name
-ORDER BY prumerna_mezirocni_procentualni_zmena; 
