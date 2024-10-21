@@ -1,5 +1,3 @@
-## Ahoj, vítám tě u svého prvního projektu. :) ##
-
 Tento projekt vznikl v rámci certifikace kurzu Datová akademie od společnosti Engeto.
 
 Cílem je ze zdrojových tabulek týkajících se životní úrovně v ČR vytvořit tabulky vlastní, ze kterých pomocí skriptů dostaneme odpovědi na otázky analytického oddělení. Veškeré výstupy jsou založené na datech za období let 2006-2018.
