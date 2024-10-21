@@ -2,7 +2,7 @@
 
 Tento projekt vznikl v rámci certifikace kurzu Datové akademie od společnosti Engeto.
 
-Cílem je ze zdrojových tabulek vytvoření tabulky vlastní, ze které pomocí skriptů dostaneme odpovědi na otázky analytického oddělení.
+Cílem je ze zdrojových tabulek týkajících se životní úrovně v ČR vytvořit tabulky vlastní, ze kterých pomocí skriptů dostaneme odpovědi na otázky analytického oddělení.
 
 **Výzkumné otázky:** 
 
