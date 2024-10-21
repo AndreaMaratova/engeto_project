@@ -1,0 +1,22 @@
+-- 5. Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP vzroste výrazněji v jednom roce, projeví se to na cenách potravin či mzdách ve stejném nebo následujícím roce výraznějším růstem?
+
+SELECT 
+    a.YEAR, 
+    a.gdp AS gdp_CZE,
+    lag(avg(a.gdp)) OVER (PARTITION BY a.country ORDER BY a.year) AS gdp_v_minulem_roce,
+    round((a.gdp/lag(avg(a.gdp)) OVER (PARTITION BY a.country ORDER BY a.year))*100,2)-100 AS gdp_pct_zmena,
+    -- a.gini AS gini_CZE, 
+    -- lag(avg(a.gini)) OVER (PARTITION BY a.country ORDER BY a.year) AS gini_v_minulem_roce,
+    -- avg(b.prumerna_mzda) AS avg_mzda_vsechny_obory,
+    -- lag(avg(b.prumerna_mzda)) OVER (PARTITION BY b.category_name ORDER BY b.year) AS prumerna_mzda_v_predchozim_roce,
+    round((avg(b.prumerna_mzda)/lag(avg(b.prumerna_mzda)) OVER (PARTITION BY b.category_name ORDER BY b.year))*100,2)-100 AS prumerna_mzda_pct_zmena,
+    -- avg(b.prumerna_cena) AS avg_cena_produktu,
+    -- lag(avg(b.prumerna_cena)) OVER (PARTITION BY b.category_name ORDER BY b.year) AS prumerna_cena_v_predchozim_roce,
+    round((avg(b.prumerna_cena)/lag(avg(b.prumerna_cena)) OVER (PARTITION BY b.category_name ORDER BY b.year))*100,2)-100 AS prumerna_cena_pct_zmena
+FROM 
+    t_andrea_maratova_project_sql_secondary_final a
+jOIN t_andrea_maratova_project_sql_primary_final b
+	ON a.YEAR = b.year
+WHERE a.country = 'Czech Republic' AND a.YEAR BETWEEN 2006 AND 2018
+GROUP BY a.year
+ORDER BY a.year ASC;
