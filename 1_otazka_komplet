@@ -41,8 +41,9 @@ SELECT
 	YEAR, 
 	industry_name, 
 	prumerna_mzda, 
+	round(((prumerna_mzda - lag(prumerna_mzda) OVER (PARTITION BY industry_name ORDER BY year))/prumerna_mzda)*100,2) AS procentualni_zmena,
 	CASE 
-		WHEN lag(prumerna_mzda) OVER (PARTITION BY industry_name ORDER BY YEAR) > prumerna_mzda THEN 'NE' ELSE 'ANO'
+		WHEN lag(prumerna_mzda) OVER (PARTITION BY industry_name ORDER BY YEAR) > prumerna_mzda OR round(((prumerna_mzda - lag(prumerna_mzda) OVER (PARTITION BY industry_name ORDER BY year))/prumerna_mzda)*100,2) IS null  THEN 'NE' ELSE 'ANO'
 	END AS vyssi_mzda
 FROM t_andrea_maratova_project_sql_primary_final tampspf
 GROUP BY YEAR, industry_name 
