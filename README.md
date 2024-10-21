@@ -4,7 +4,7 @@ Tento projekt vznikl v rámci certifikace kurzu Datové akademie od společnosti
 
 Cílem je ze zdrojových tabulek vytvoření tabulky vlastní, ze které pomocí skriptů dostaneme odpovědi na otázky analytického oddělení.
 
-** Výzkumné otázky: ** 
+**Výzkumné otázky:** 
 
 1. Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?
 2. Kolik je možné si koupit litrů mléka a kilogramů chleba za první a poslední srovnatelné období v dostupných datech cen a mezd?
