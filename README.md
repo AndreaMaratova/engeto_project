@@ -17,7 +17,7 @@ Skript k vytvoření sekundární tabulky *__t_andrea_maratova_project_sql_secon
 5. Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP vzroste výrazněji v jednom roce, projeví se to na cenách potravin či mzdách ve stejném nebo následujícím roce výraznějším růstem? [Skript](https://github.com/AndreaMaratova/engeto_project_1/blob/main/5_otazka_komplet)
 
 
-Textové shrnutí výsledků nalezneš [zde](https://github.com/AndreaMaratova/engeto_project_1/blob/main/vysledky_text).
+Textové shrnutí výsledků nalezneš [zde](vysledky_text.md).
 
 
 
