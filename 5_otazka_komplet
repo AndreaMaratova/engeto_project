@@ -15,7 +15,7 @@ SELECT
     round((avg(b.prumerna_cena)/lag(avg(b.prumerna_cena)) OVER (PARTITION BY b.category_name ORDER BY b.year))*100,2)-100 AS prumerna_cena_pct_zmena
 FROM 
     t_andrea_maratova_project_sql_secondary_final a
-jOIN t_andrea_maratova_project_sql_primary_final b
+JOIN t_andrea_maratova_project_sql_primary_final b
 	ON a.YEAR = b.year
 WHERE a.country = 'Czech Republic' AND a.YEAR BETWEEN 2006 AND 2018
 GROUP BY a.year
