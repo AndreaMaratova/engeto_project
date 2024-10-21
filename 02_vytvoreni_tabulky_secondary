@@ -1,0 +1,25 @@
+CREATE OR REPLACE VIEW v_andrea_maratova_economies_hdp_gini AS
+SELECT country, YEAR, GDP, population, gini
+FROM economies e 
+WHERE gdp IS NOT NULL AND population IS NOT NULL AND YEAR BETWEEN 2006 AND 2018;
+
+
+CREATE OR REPLACE TABLE t_andrea_maratova_project_sql_secondary_final (
+id int UNIQUE AUTO_INCREMENT PRIMARY KEY NOT NULL,
+country varchar(255) NOT NULL,
+YEAR int NOT NULL,
+GDP decimal(17,3) NOT NULL,
+population decimal(15,1) NOT NULL,
+gini decimal (5,2)
+);
+
+
+INSERT INTO t_andrea_maratova_project_sql_secondary_final 
+	(country, YEAR, GDP, population, gini)
+SELECT 
+	country,
+	YEAR,
+	GDP,
+	population,
+	gini 
+FROM v_andrea_maratova_economies_hdp_gini; 
