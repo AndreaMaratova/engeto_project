@@ -2,7 +2,7 @@
 
 Tento projekt vznikl v rámci certifikace kurzu Datové akademie od společnosti Engeto.
 
-Cílem je ze zdrojových tabulek týkajících se životní úrovně v ČR vytvořit tabulky vlastní, ze kterých pomocí skriptů dostaneme odpovědi na otázky analytického oddělení.
+Cílem je ze zdrojových tabulek týkajících se životní úrovně v ČR vytvořit tabulky vlastní, ze kterých pomocí skriptů dostaneme odpovědi na otázky analytického oddělení. Veškeré výstupy jsou založené na datech za období let 2006-2018.
 
 Skript k vytvoření primární tabulky *__t_andrea_maratova_project_sql_primary_final__* nalezneš [zde](https://github.com/AndreaMaratova/engeto_project_1/blob/main/01_vytvoreni_tabulky_primary) (pro data mezd a cen potravin za Českou republiku sjednocených na totožné porovnatelné období - společné roky).
 
