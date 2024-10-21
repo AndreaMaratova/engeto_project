@@ -1,4 +1,4 @@
-Discord: ozzy1948#3358
+Discord: ozzy1948 #3358
 
 Tento projekt vznikl v rámci certifikace kurzu Datová akademie od společnosti Engeto.
 
