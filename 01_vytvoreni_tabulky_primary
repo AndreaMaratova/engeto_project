@@ -1,3 +1,5 @@
+-- Discrod: ozzy1948 #3358
+
 -- 1. Vytvoření pohledu vypočtené průměrné mzdy za rok dle odvětví
 CREATE OR REPLACE VIEW v_andrea_maratova_czechia_payroll_prumerna_mzda_dle_odvetvi as
 SELECT 
