@@ -66,5 +66,5 @@ ORDER BY
     a.year, a.category_name;
 
 -- Shrnutí:
--- Rok jako takový, ve kterém by ceny rostly jídla rostly o 10 a více procent, žádný nebyl. 
+-- Rok jako takový, ve kterém by ceny jídla rostly o 10 a více procent, žádný nebyl. 
 -- Ale při pohledu na jednotlivé produkty nalezneme takové, které během jednoho roku zdražily o 10 a více procent, než-li byl růst průměrné mzdy napříč obory. Např. za celé pozorované období nejvíce zdražily v roce 2007 papriky, a to o 87,98 % oproti růstu mezd.  
